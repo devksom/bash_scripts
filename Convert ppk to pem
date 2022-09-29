@@ -1,0 +1,15 @@
+#!/bin/bash
+if ! dpkg-query -W -f='${Status}' putty-tools  | grep "ok installed"; then apt install putty-tools; fi
+
+
+echo "Enter the absolute path of the file"
+read ppkfile
+
+filename="${ppkfile%%.*}"
+
+
+puttygen "$ppkfile" -O private-openssh -o "$filename".pem 
+newfilename="$filename".pem
+sudo chmod 400 $newfilename.pem
+
+
